@@ -1,1 +1,30 @@
-<p>product-form works!</p>
+<div class="container">
+  <h2>{{ isEdit ? 'Edit Product' : 'Add Product' }}</h2>
+  <form [formGroup]="productForm" (ngSubmit)="onSubmit()">
+    <div>
+      <label>Name</label>
+      <input formControlName="name" />
+      <div
+        *ngIf="productForm.get('name')?.invalid && productForm.get('name')?.touched"
+      >
+        Name is required
+      </div>
+    </div>
+    <div>
+      <label>Description</label>
+      <textarea formControlName="description"></textarea>
+    </div>
+    <div>
+      <label>Price</label>
+      <input type="number" formControlName="price" />
+      <div
+        *ngIf="productForm.get('price')?.invalid && productForm.get('price')?.touched"
+      >
+        Price is required and must be positive
+      </div>
+    </div>
+    <button type="submit" [disabled]="productForm.invalid">
+      {{ isEdit ? 'Update' : 'Add' }}
+    </button>
+  </form>
+</div>
